@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  db:
+    image: mongo
+    networks:
+      - back
+
+  neural_network:
+    build: ./neural_network
+    command: adev runserver app.py --host 0.0.0.0 --port 80
+    volumes:
+      - ./neural_network:/code
+    networks:
+      - back
+  
+  api:
+    build: ./api
+    command: python api.py
+    volumes: 
+      - ./api:/code
+    depends_on:
+      - db
+    networks:
+      - back
+      - front
+  
+  web:
+    image: nginx
+    volumes:
+      - ./front/dist:/var/www/html/
+      - ./nginx_conf:/etc/nginx/conf.d/
+    ports:
+      - "80:8000"
+    depends_on:
+      - api
+    networks:
+      - front
+
+networks:
+  back:
+  front:
+
