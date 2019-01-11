@@ -1,0 +1,9 @@
+[submodule "front"]
+	path = front
+	url = https://github.com/polpusty/sign_recognition__front.git
+[submodule "api"]
+	path = api
+	url = https://github.com/polpusty/sign_recognition__api.git
+[submodule "neural_network"]
+	path = neural_network
+	url = https://github.com/polpusty/sign_recognition__neural_network.git
